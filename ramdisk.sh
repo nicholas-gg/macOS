@@ -1,45 +1,43 @@
 #!/usr/bin/env sh
 
+_USAGE()
+{
+	printf '%s\n' '' "Usage: $0 <size>"
+	printf '%s\n' 'Size is in gigabytes and can be 1, 2, 4, 8 and 16.' ''
+	exit 1
+}
+
 if [ $2 ]
 then
-	echo "Usage: ramdisk [ size ]"
-	echo "Size is in gigabytes and can be 1, 2, 4, 6 and 8."
-	echo "The default is 2."
-	exit
+	printf '%s\n' '' 'Too many parameters!'
+	_USAGE
 fi
 
 if [ -e $1 ]
 then
-	echo "Using default value of 2 GB."
-	echo "Creating 2 GB RAM disk:"
-	SIZE="4194304"
-	/usr/sbin/diskutil erasevolume HFS+ 'ramdisk' `/usr/bin/hdiutil attach -nomount ram://$SIZE`
-	exit
+	printf '%s\n' '' 'Not enough parameters!'
+	_USAGE
 fi
 
 case "$1" in
 
-1)	echo "Creating $1 GB RAM disk:"
-	SIZE="2097152"
+1)	SIZE="2097152"
 	;;
-2)	echo "Creating $1 GB RAM disk:"
-	SIZE="4194304"
+2)	SIZE="4194304"
 	;;
-4)	echo "Creating $1 GB RAM disk:"
-	SIZE="8388608"
+4)	SIZE="8388608"
 	;;
-6)	echo "Creating $1 GB RAM disk:"
-	SIZE="12582912"
+8)	SIZE="16777216"
 	;;
-8)	echo "Creating $1 GB RAM disk:"
-	SIZE="16777216"
+16)	SIZE="33554432"
 	;;
-*)	echo "Wrong size."
-	echo "Size is in gigabytes and can be 1, 2, 4, 6 and 8."
-	echo "The default is 2."
+*)	printf '%s\n' '' 'Unsupported size.'
+	_USAGE
 	;;
 esac
 
+printf '%s\n' '' "Creating $1 GB RAM disk:"
 /usr/sbin/diskutil erasevolume APFSX 'ramdisk' `/usr/bin/hdiutil attach -nomount ram://$SIZE`
+printf '%s\n' ''
 
 exit 0
