@@ -40,6 +40,6 @@ case "$1" in
 	;;
 esac
 
-/usr/sbin/diskutil erasevolume HFS+ 'ramdisk' `/usr/bin/hdiutil attach -nomount ram://$SIZE`
+/usr/sbin/diskutil erasevolume APFSX 'ramdisk' `/usr/bin/hdiutil attach -nomount ram://$SIZE`
 
 exit 0
