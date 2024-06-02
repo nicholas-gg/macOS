@@ -9,28 +9,22 @@ return
 printf '%s' 'Reading configuration... '
 
 _NWSTATUS=$(defaults read com.apple.desktopservices DSDontWriteNetworkStores 2>/dev/null)
-if [[ $_NWSTATUS == true ]]
-then
+if [[ $_NWSTATUS == true ]]; then
 	_NWSTATUS=disabled
-elif [[ $_NWSTATUS == false ]]
-then
+elif [[ $_NWSTATUS == false ]]; then
 	_NWSTATUS=enabled
-elif [[ $_NWSTATUS == "" ]]
-then
+elif [[ $_NWSTATUS == "" ]]; then
 	_NWSTATUS='not configured (enabled)'
 else
 	_NWSTATUS=misconfigured
 fi
 
 _USBSTATUS=$(defaults read com.apple.desktopservices DSDontWriteUSBStores 2>/dev/null)
-if [[ $_USBSTATUS == 0 ]]
-then
+if [[ $_USBSTATUS == 0 ]]; then
 	_USBSTATUS=enabled
-elif [[ $_USBSTATUS == 1 ]]
-then
+elif [[ $_USBSTATUS == 1 ]]; then
 	_USBSTATUS=disabled
-elif [[ $_USBSTATUS == "" ]]
-then
+elif [[ $_USBSTATUS == "" ]]; then
 	_USBSTATUS='not configured (enabled)'
 else
 	_USBSTATUS=misconfigured
